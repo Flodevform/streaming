@@ -27,6 +27,18 @@ class Lien
      * @ORM\Column(name="url", type="string", length=128)
      */
     private $url;
+    
+    /**
+     * @ORM\JoinColumn(name="film_id")
+     * @ORM\ManyToOne(targetEntity="Film", inversedBy="urls")
+     */
+    private $film;
+    
+    /**
+     * @ORM\JoinColumn(name="episode_id")
+     * @ORM\ManyToOne(targetEntity="Episode", inversedBy="urls")
+     */
+    private $serie;
 
 
     /**
@@ -62,5 +74,52 @@ class Lien
     {
         return $this->url;
     }
-}
 
+    /**
+     * Set film
+     *
+     * @param \AppBundle\Entity\Film $film
+     *
+     * @return Lien
+     */
+    public function setFilm(\AppBundle\Entity\Film $film = null)
+    {
+        $this->film = $film;
+
+        return $this;
+    }
+
+    /**
+     * Get film
+     *
+     * @return \AppBundle\Entity\Film
+     */
+    public function getFilm()
+    {
+        return $this->film;
+    }
+
+    /**
+     * Set serie
+     *
+     * @param \AppBundle\Entity\Serie $serie
+     *
+     * @return Lien
+     */
+    public function setSerie(\AppBundle\Entity\Serie $serie = null)
+    {
+        $this->serie = $serie;
+
+        return $this;
+    }
+
+    /**
+     * Get serie
+     *
+     * @return \AppBundle\Entity\Serie
+     */
+    public function getSerie()
+    {
+        return $this->serie;
+    }
+}

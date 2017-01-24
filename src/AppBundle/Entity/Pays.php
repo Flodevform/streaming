@@ -27,6 +27,16 @@ class Pays
      * @ORM\Column(name="nom", type="string", length=64)
      */
     private $nom;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Film", mappedBy="pays")
+     */
+    private $films;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Serie", mappedBy="pays")
+     */
+    private $series;
 
 
     /**
@@ -62,5 +72,79 @@ class Pays
     {
         return $this->nom;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->films = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add film
+     *
+     * @param \AppBundle\Entity\Film $film
+     *
+     * @return Pays
+     */
+    public function addFilm(\AppBundle\Entity\Film $film)
+    {
+        $this->films[] = $film;
+
+        return $this;
+    }
+
+    /**
+     * Remove film
+     *
+     * @param \AppBundle\Entity\Film $film
+     */
+    public function removeFilm(\AppBundle\Entity\Film $film)
+    {
+        $this->films->removeElement($film);
+    }
+
+    /**
+     * Get films
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFilms()
+    {
+        return $this->films;
+    }
+
+    /**
+     * Add series
+     *
+     * @param \AppBundle\Entity\Serie $series
+     *
+     * @return Pays
+     */
+    public function addSeries(\AppBundle\Entity\Serie $series)
+    {
+        $this->series[] = $series;
+
+        return $this;
+    }
+
+    /**
+     * Remove series
+     *
+     * @param \AppBundle\Entity\Serie $series
+     */
+    public function removeSeries(\AppBundle\Entity\Serie $series)
+    {
+        $this->series->removeElement($series);
+    }
+
+    /**
+     * Get series
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSeries()
+    {
+        return $this->series;
+    }
+}
